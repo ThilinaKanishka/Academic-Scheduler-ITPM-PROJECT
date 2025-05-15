@@ -71,6 +71,76 @@ const Navbar = () => {
     },
   };
 
+  // Unicorn animation variants
+  const unicornVariants = {
+    initial: {
+      rotate: 0,
+      scale: 1,
+    },
+    animate: {
+      rotate: [0, 5, -5, 0],
+      scale: [1, 1.05, 1],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+    hover: {
+      rotate: [0, 15, -15, 0],
+      scale: [1, 1.1, 1],
+      transition: {
+        duration: 1,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const hornVariants = {
+    initial: {
+      y: 0,
+    },
+    animate: {
+      y: [-2, 2, -2],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+    hover: {
+      y: [-3, 3, -3],
+      transition: {
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const maneVariants = {
+    initial: {
+      opacity: 1,
+    },
+    animate: {
+      opacity: [0.8, 1, 0.8],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+    hover: {
+      opacity: [0.7, 1, 0.7],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <header className="bg-gradient-to-r from-indigo-900 via-purple-900 to-gray-900 shadow-xl">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
@@ -82,12 +152,15 @@ const Navbar = () => {
               whileTap="tap"
               variants={logoVariants}
             >
-              {/* New Unicorn Icon with Gradient */}
-              <svg
+              {/* Enhanced Unicorn Icon with Magical Animations */}
+              <motion.svg
                 className="h-10 w-10 mr-2"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                initial="initial"
+                animate="animate"
+                whileHover="hover"
               >
                 <defs>
                   <linearGradient
@@ -101,50 +174,141 @@ const Navbar = () => {
                     <stop offset="50%" stopColor="#ec4899" />
                     <stop offset="100%" stopColor="#f43f5e" />
                   </linearGradient>
+                  <linearGradient
+                    id="hornGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" stopColor="#fde047" />
+                    <stop offset="50%" stopColor="#fbbf24" />
+                    <stop offset="100%" stopColor="#f59e0b" />
+                  </linearGradient>
+                  <linearGradient
+                    id="maneGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" stopColor="#ec4899" />
+                    <stop offset="50%" stopColor="#d946ef" />
+                    <stop offset="100%" stopColor="#a855f7" />
+                  </linearGradient>
+                  <filter
+                    id="sparkle"
+                    x="-20%"
+                    y="-20%"
+                    width="140%"
+                    height="140%"
+                  >
+                    <feGaussianBlur
+                      in="SourceGraphic"
+                      stdDeviation="1"
+                      result="blur"
+                    />
+                    <feColorMatrix
+                      in="blur"
+                      mode="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 15 -7"
+                      result="sparkle"
+                    />
+                    <feComposite
+                      in="SourceGraphic"
+                      in2="sparkle"
+                      operator="atop"
+                    />
+                  </filter>
                 </defs>
-                <path
-                  d="M12 5C12 3 10 1 8 1C6 1 4 3 4 5C4 7 6 9 8 9C10 9 12 7 12 5Z"
+
+                {/* Unicorn Head */}
+                <motion.circle
+                  cx="12"
+                  cy="10"
+                  r="6"
                   fill="url(#unicornGradient)"
+                  variants={unicornVariants}
                 />
-                <path
-                  d="M16 5C16 3 18 1 20 1C22 1 24 3 24 5C24 7 22 9 20 9C18 9 16 7 16 5Z"
-                  fill="url(#unicornGradient)"
+
+                {/* Unicorn Horn */}
+                <motion.path
+                  d="M12 4L14 2L12 0L10 2L12 4Z"
+                  fill="url(#hornGradient)"
+                  variants={hornVariants}
+                  filter="url(#sparkle)"
                 />
-                <path
-                  d="M12 5C12 7 14 9 16 9C18 9 20 7 20 5C20 3 18 1 16 1C14 1 12 3 12 5Z"
-                  fill="url(#unicornGradient)"
-                />
-                <path
-                  d="M8 9C10 9 12 7 12 5C12 3 10 1 8 1C6 1 4 3 4 5C4 7 6 9 8 9Z"
-                  fill="url(#unicornGradient)"
-                />
-                <path
-                  d="M16 9C18 9 20 7 20 5C20 3 18 1 16 1C14 1 12 3 12 5C12 7 14 9 16 9Z"
-                  fill="url(#unicornGradient)"
-                />
-                <path
-                  d="M12 5C12 7 10 9 8 9C6 9 4 7 4 5C4 3 6 1 8 1C10 1 12 3 12 5Z"
-                  fill="url(#unicornGradient)"
-                />
-                <path
-                  d="M20 9C22 9 24 7 24 5C24 3 22 1 20 1C18 1 16 3 16 5C16 7 18 9 20 9Z"
-                  fill="url(#unicornGradient)"
-                />
-                <path
-                  d="M12 5L12 19M12 19L8 15M12 19L16 15"
-                  stroke="url(#unicornGradient)"
+
+                {/* Unicorn Eye */}
+                <circle cx="10.5" cy="9" r="1" fill="#1f2937" />
+
+                {/* Unicorn Mane */}
+                <motion.path
+                  d="M6 10C6 12 8 14 10 14C12 14 14 12 14 10"
+                  stroke="url(#maneGradient)"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
+                  fill="none"
+                  variants={maneVariants}
                 />
+
+                {/* Unicorn Body */}
                 <path
-                  d="M12 5L12 19M12 19L8 15M12 19L16 15"
-                  stroke="url(#unicornGradient)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  d="M12 14C16 14 18 18 18 20C18 22 16 24 12 24C8 24 6 22 6 20C6 18 8 14 12 14Z"
+                  fill="url(#unicornGradient)"
                 />
-              </svg>
+
+                {/* Sparkles */}
+                <motion.circle
+                  cx="14"
+                  cy="2"
+                  r="0.5"
+                  fill="#ffffff"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    scale: [1, 1.5, 1],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: 0.5,
+                  }}
+                />
+                <motion.circle
+                  cx="13"
+                  cy="0"
+                  r="0.3"
+                  fill="#ffffff"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    scale: [1, 1.8, 1],
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    delay: 0.7,
+                  }}
+                />
+                <motion.circle
+                  cx="11"
+                  cy="1"
+                  r="0.4"
+                  fill="#ffffff"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    scale: [1, 1.6, 1],
+                  }}
+                  transition={{
+                    duration: 2.2,
+                    repeat: Infinity,
+                    delay: 0.3,
+                  }}
+                />
+              </motion.svg>
+
               <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 animate-text">
                 Academic Scheduler
               </h1>
